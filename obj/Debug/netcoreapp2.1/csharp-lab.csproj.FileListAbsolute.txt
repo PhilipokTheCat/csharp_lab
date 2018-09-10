@@ -1,0 +1,11 @@
+E:\Универ\OOTPiSP\csharp-lab\bin\Debug\netcoreapp2.1\csharp-lab.deps.json
+E:\Универ\OOTPiSP\csharp-lab\bin\Debug\netcoreapp2.1\csharp-lab.runtimeconfig.json
+E:\Универ\OOTPiSP\csharp-lab\bin\Debug\netcoreapp2.1\csharp-lab.runtimeconfig.dev.json
+E:\Универ\OOTPiSP\csharp-lab\bin\Debug\netcoreapp2.1\csharp-lab.dll
+E:\Универ\OOTPiSP\csharp-lab\bin\Debug\netcoreapp2.1\csharp-lab.pdb
+E:\Универ\OOTPiSP\csharp-lab\obj\Debug\netcoreapp2.1\csharp-lab.csprojAssemblyReference.cache
+E:\Универ\OOTPiSP\csharp-lab\obj\Debug\netcoreapp2.1\csharp-lab.csproj.CoreCompileInputs.cache
+E:\Универ\OOTPiSP\csharp-lab\obj\Debug\netcoreapp2.1\csharp-lab.AssemblyInfoInputs.cache
+E:\Универ\OOTPiSP\csharp-lab\obj\Debug\netcoreapp2.1\csharp-lab.AssemblyInfo.cs
+E:\Универ\OOTPiSP\csharp-lab\obj\Debug\netcoreapp2.1\csharp-lab.dll
+E:\Универ\OOTPiSP\csharp-lab\obj\Debug\netcoreapp2.1\csharp-lab.pdb
