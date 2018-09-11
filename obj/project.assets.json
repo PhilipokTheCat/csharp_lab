@@ -687,11 +687,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Универ\\OOTPiSP\\csharp-lab\\csharp-lab.csproj",
+      "projectUniqueName": "E:\\Учёба\\ООТПиСП\\лабы\\csharp_lab\\csharp-lab.csproj",
       "projectName": "csharp-lab",
-      "projectPath": "E:\\Универ\\OOTPiSP\\csharp-lab\\csharp-lab.csproj",
+      "projectPath": "E:\\Учёба\\ООТПиСП\\лабы\\csharp_lab\\csharp-lab.csproj",
       "packagesPath": "C:\\Users\\Philipok\\.nuget\\packages\\",
-      "outputPath": "E:\\Универ\\OOTPiSP\\csharp-lab\\obj\\",
+      "outputPath": "E:\\Учёба\\ООТПиСП\\лабы\\csharp_lab\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace csharp_lab
 {
     enum JobTitle {
-        Developer,
-        DevOps,
-        ProjectManager,
+        Twitch_Streamer,
+        Perfomance_Artist,
         Default
     }
     class Person {
@@ -61,25 +61,39 @@ namespace csharp_lab
         public virtual string ToShortString() {
             return $"{firstName} {lastName}";
         }
+        public override bool Equals(object obj) {
+            bool isEqual = true;
+            if ((this.firstName != obj.firstName) ||
+             (this.lastName != obj.lastName) ||
+             (this.birthDate != obj.birthDate)) isEqual = false;
+            return isEqual;
+        }
     }
 
     class Project {
         public string name { get; set; }
-        public int budget { get; set; }
+        public int salary { get; set; }
         public System.DateTime deadline { get; set; }
-        public Project(string name, int budget, System.DateTime deadline) {
+        public Project(string name, int salary, System.DateTime deadline) {
             this.name = name;
-            this.budget = budget;
+            this.salary = salary;
             this.deadline = deadline;
         }
         public Project() {
             this.name = "Default name";
-            this.budget = 0;
+            this.salary = 0;
             Random rand = new Random();
             this.deadline = new DateTime(rand.Next(2018, 2025), rand.Next(1, 13), rand.Next(1, 29));
         }
         public override string ToString() {
-            return $"Project {name} with budget of ${budget} and deadline of {deadline.Day}-{deadline.Month}-{deadline.Year}";
+            return $"Project {name} with salary of ${salary} and deadline of {deadline.Day}-{deadline.Month}-{deadline.Year}";
+        }
+        public override bool Equals(object obj) {
+            bool isEqual = true;
+            if ((this.name != obj.name) ||
+             (this.salary != obj.salary) ||
+             (this.deadline != obj.deadline)) isEqual = false;
+            return isEqual;
         }
     }
 
@@ -87,7 +101,7 @@ namespace csharp_lab
         private Person person;
         private JobTitle jobTitle;
         private int projectId;
-        private Project[] pastProjects;
+        private List<Project> pastProjects = new List<Project>();
         public Employee(Person person, JobTitle jobTitle, int projectId) {
             this.person = person;
             this.jobTitle = jobTitle;
@@ -122,20 +136,67 @@ namespace csharp_lab
                 projectId = value;
             }
         }
-        public Project[] PastProjects {
+        public List<Project> PastProjects {
             get {
-                return PastProjects;
+                return pastProjects;
             }
             set {
-                PastProjects = value;
+                pastProjects = value;
             }
+        }
+        public double AverageSalary {
+            get{
+                double summarySalary = 0;
+                int projectsCount = this.pastProjects.Count;
+                foreach (Project item in this.pastProjects)
+                {
+                    summarySalary += item.salary;
+                }
+                return projectsCount != 0 ? (summarySalary / projectsCount) : 0;
+            }
+        }
+        public bool this[JobTitle jobTitle] {
+            get {
+                return this.jobTitle == jobTitle;
+            }
+        }
+        public void AddProjects(List<Project> projects) {
+            foreach(Project project in projects){
+                this.pastProjects.Add(project);
+            }
+        }
+        public override string ToString() {
+            string pastProjectsList = "";
+            foreach (Project project in this.pastProjects){
+                pastProjectsList += $"\n{project}";
+            }
+            return $"{this.person}\nJob title: {this.jobTitle}\nCurrent projectID: {this.projectId}\nPast projects:{pastProjectsList}";
+        }
+        public virtual string ToShortString() {
+            return $"{this.person}\nJob title: {this.jobTitle}\nCurrent projectID: {this.projectId}\nAverage salary: ${this.AverageSalary}";
+        }
+        public override bool Equals(object obj) {
+            bool isEqual = true;
+            if ((this.person != obj.person) ||
+             (this.jobTitle != obj.jobTitle) ||
+             (this.pastProjects != obj.pastProjects) ||
+             (this.projectId != obj.projectId)) isEqual = false;
+            return isEqual;
         }
     }
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Employee employee = new Employee(new Person("Billy", "Herrington", new DateTime(1969, 07, 14)), JobTitle.Perfomance_Artist, 69);
+            Console.WriteLine(employee.ToShortString());
+            Console.WriteLine($"{JobTitle.Default} {JobTitle.Twitch_Streamer} {JobTitle.Perfomance_Artist}");
+            employee.Person = new Person("Sebastian", "Fors", new DateTime(1990, 12, 16));
+            employee.ProjectId = 77777;
+            employee.JobTitle = JobTitle.Twitch_Streamer;
+            List<Project> projects = new List<Project>{new Project("TW-STR", 5000, new DateTime(2020, 12, 31)), new Project("GOOG-YT", 3000, new DateTime(2018, 12, 31))};
+            employee.AddProjects(projects);
+            Console.WriteLine(employee);
         }
     }
 }
