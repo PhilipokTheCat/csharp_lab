@@ -165,39 +165,20 @@ namespace csharp_lab
     }
     class Program
     {
-        static void Main(string[] args)
-        {
-            Employee employee = new Employee(new Person("Billy", "Herrington", new DateTime(1969, 07, 14)), JobTitle.Perfomance_Artist, 69);
-            Console.WriteLine(employee.ToShortString());
-            Console.WriteLine($"{JobTitle.Default} {JobTitle.Twitch_Streamer} {JobTitle.Perfomance_Artist}");
-            employee.Person = new Person("Sebastian", "Fors", new DateTime(1990, 12, 16));
-            employee.ProjectId = 77777;
-            employee.JobTitle = JobTitle.Twitch_Streamer;
-            List<Project> projects = new List<Project>{new Project("TW-STR", 5000, new DateTime(2020, 12, 31)), new Project("GOOG-YT", 3000, new DateTime(2018, 12, 31))};
-            employee.AddProjects(projects);
-            Console.WriteLine(employee);
-        }
+        // static void Main(string[] args)
+        // {
+        //     Employee employee = new Employee(new Person("Billy", "Herrington", new DateTime(1969, 07, 14)), JobTitle.Perfomance_Artist, 69);
+        //     Console.WriteLine(employee.ToShortString());
+        //     Console.WriteLine($"{JobTitle.Default} {JobTitle.Twitch_Streamer} {JobTitle.Perfomance_Artist}");
+        //     employee.Person = new Person("Sebastian", "Fors", new DateTime(1990, 12, 16));
+        //     employee.ProjectId = 77777;
+        //     employee.JobTitle = JobTitle.Twitch_Streamer;
+        //     List<Project> projects = new List<Project>{new Project("TW-STR", 5000, new DateTime(2020, 12, 31)), new Project("GOOG-YT", 3000, new DateTime(2018, 12, 31))};
+        //     employee.AddProjects(projects);
+        //     Console.WriteLine(employee);
+        // }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 namespace csharp_lab2
 {
@@ -316,15 +297,21 @@ namespace csharp_lab2
     class Employee : Person, IDateAndCopy {
         private JobTitle jobTitle;
         private int projectId;
+        private Person person;
         private ArrayList pastProjects = new ArrayList();
         private ArrayList tasks = new ArrayList();
-        public Employee(string firstName, string lastName, DateTime birthDate, JobTitle jobTitle, int projectId) : base(firstName, lastName, birthDate) {
+        public Employee(Person person, JobTitle jobTitle, int projectId){
+            this.person = person;
             this.jobTitle = jobTitle;
             this.projectId = projectId;
         }
-        public Employee() : base() {
+        public Employee(){
+            this.person = new Person();
             this.jobTitle = JobTitle.Default;
             this.projectId = 0;
+        }
+        public Person Person {
+            get; set;
         }
         public DateTime Date {
             get; set;
@@ -342,6 +329,7 @@ namespace csharp_lab2
                 return projectId;
             }
             set {
+                if (value > 599 && value <= 100) throw new Exception("Project ID value should be greater than or equals to 100 and less than 599!");
                 projectId = value;
             }
         }
@@ -351,6 +339,19 @@ namespace csharp_lab2
             }
             set {
                 pastProjects = value;
+            }
+        }
+        public IEnumerator GetTasksAndProjects(){
+            foreach(object task in this.tasks) {
+                yield return task;
+            }
+            foreach(object project in this.pastProjects) {
+                yield return project;
+            }
+        }
+        public IEnumerator GetProjects(int bottomLine){
+            foreach(object project in this.pastProjects) {
+                if (project.salary >= bottomLine) yield return project;
             }
         }
         public double AverageSalary {
@@ -369,20 +370,29 @@ namespace csharp_lab2
                 return this.jobTitle == jobTitle;
             }
         }
-        public void AddProjects(List<Project> projects) {
+        public void AddProjects(ArrayList projects) {
             foreach(Project project in projects){
                 this.pastProjects.Add(project);
+            }
+        }
+        public void AddTasks(ArrayList tasks) {
+            foreach(Task task in tasks){
+                this.tasks.Add(task);
             }
         }
         public override string ToString() {
             string pastProjectsList = "";
             foreach (Project project in this.pastProjects){
                 pastProjectsList += $"\n{project}";
+            };
+            string tasksList = "";
+            foreach (Task task in this.tasks) {
+                tasksList += $"\n{task}";
             }
-            return $"{this.firstName} {this.lastName} {this.birthDate.Day}-{this.birthDate.Month}-{this.birthDate.Year}\nJob title: {this.jobTitle}\nCurrent projectID: {this.projectId}\nPast projects:{pastProjectsList}";
+            return $"{this.person}\nJob title: {this.jobTitle}\nCurrent projectID: {this.projectId}\nPast projects:{pastProjectsList}\nTasks:{tasksList}";
         }
         public virtual string ToShortString() {
-            return $"{this.firstName} {this.lastName} {this.birthDate.Day}-{this.birthDate.Month}-{this.birthDate.Year}\nJob title: {this.jobTitle}\nCurrent projectID: {this.projectId}\nAverage salary: ${this.AverageSalary}";
+            return $"{this.person}\nJob title: {this.jobTitle}\nCurrent projectID: {this.projectId}\nAverage salary: ${this.AverageSalary}";
         }
         public override bool Equals(object obj) {
             return this.GetHashCode() == obj.GetHashCode();
@@ -395,7 +405,7 @@ namespace csharp_lab2
             return hashCode;
         }
         public virtual Employee DeepCopy() {
-            return new Employee(this.FirstName, this.LastName, this.BirthDate, this.jobTitle, this.projectId);
+            return new Employee(this.person, this.jobTitle, this.projectId);
         }
     }
     class Task {
@@ -410,22 +420,37 @@ namespace csharp_lab2
             this.isDone = false;
         }
         public override string ToString() {
-            return $"Task name: {this.name};\nTask state: {(this.isDone ? "done" : "undone")}";
+            return $"Task name: {this.name}; Task state: {(this.isDone ? "done" : "undone")}";
         }
     }
     class Program
     {
-        // static void Main(string[] args)
-        // {
-        //     Employee employee = new Employee(new Person("Billy", "Herrington", new DateTime(1969, 07, 14)), JobTitle.Perfomance_Artist, 69);
-        //     Console.WriteLine(employee.ToShortString());
-        //     Console.WriteLine($"{JobTitle.Default} {JobTitle.Twitch_Streamer} {JobTitle.Perfomance_Artist}");
-        //     employee.Person = new Person("Sebastian", "Fors", new DateTime(1990, 12, 16));
-        //     employee.ProjectId = 77777;
-        //     employee.JobTitle = JobTitle.Twitch_Streamer;
-        //     List<Project> projects = new List<Project>{new Project("TW-STR", 5000, new DateTime(2020, 12, 31)), new Project("GOOG-YT", 3000, new DateTime(2018, 12, 31))};
-        //     employee.AddProjects(projects);
-        //     Console.WriteLine(employee);
-        // }
+        static void Main(string[] args)
+        {   // 1
+            bool isPersonsSimilar = (new Person("Billy", "Herrington", new DateTime(1969, 07, 14)) == new Person("Billy", "Herrington", new DateTime(1969, 07, 14)));
+            Console.WriteLine($"Both persons are similar: {isPersonsSimilar}");
+            // 2
+            Employee employee = new Employee(new Person("Billy", "Herrington", new DateTime(1969, 07, 14)), JobTitle.Perfomance_Artist, 333);
+            ArrayList projects = new ArrayList();
+            projects.Add(new Project("TW-STR", 5000, new DateTime(2020, 12, 31)));
+            projects.Add(new Project("GOOG-YT", 3000, new DateTime(2018, 12, 31)));
+            employee.AddProjects(projects);
+            ArrayList tasks = new ArrayList();
+            tasks.Add(new Task("Dance", false));
+            tasks.Add(new Task("Become the boss of this gym", true));
+            employee.AddTasks(tasks);
+            Console.WriteLine(employee);
+            // 3
+            Console.WriteLine(employee.Person);
+            // 4
+            new Person("Billy", "Herrington", new DateTime(1969, 07, 14));
+            Console.WriteLine(employee.ToShortString());
+            Console.WriteLine($"{JobTitle.Default} {JobTitle.Twitch_Streamer} {JobTitle.Perfomance_Artist}");
+            employee.Person = new Person("Sebastian", "Fors", new DateTime(1990, 12, 16));
+            employee.ProjectId = 77777;
+            employee.JobTitle = JobTitle.Twitch_Streamer;
+            
+            Console.WriteLine(employee);
+        }
     }
 }

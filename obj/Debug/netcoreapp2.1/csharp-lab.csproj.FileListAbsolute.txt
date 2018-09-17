@@ -20,3 +20,9 @@ E:\Учёба\ООТПиСП\лабы\csharp_lab\obj\Debug\netcoreapp2.1\csharp-
 E:\Учёба\ООТПиСП\лабы\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.AssemblyInfo.cs
 E:\Учёба\ООТПиСП\лабы\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.dll
 E:\Учёба\ООТПиСП\лабы\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.pdb
+E:\Универ\OOTPiSP\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.csprojAssemblyReference.cache
+E:\Универ\OOTPiSP\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.csproj.CoreCompileInputs.cache
+E:\Универ\OOTPiSP\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.AssemblyInfoInputs.cache
+E:\Универ\OOTPiSP\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.AssemblyInfo.cs
+E:\Универ\OOTPiSP\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.dll
+E:\Универ\OOTPiSP\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.pdb
