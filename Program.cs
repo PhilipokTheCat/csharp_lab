@@ -311,7 +311,12 @@ namespace csharp_lab2
             this.projectId = 0;
         }
         public Person Person {
-            get; set;
+            get {
+                return person;
+            } 
+            set{
+                person = value;
+            }
         }
         public DateTime Date {
             get; set;
@@ -341,17 +346,40 @@ namespace csharp_lab2
                 pastProjects = value;
             }
         }
-        public IEnumerator GetTasksAndProjects(){
-            foreach(object task in this.tasks) {
-                yield return task;
+        public int bottomLine;
+        public IEnumerable GetIterator(int bottomLine = -1) {
+            this.bottomLine = bottomLine;
+            if (this.bottomLine == -1) {
+                foreach(Task task in this.tasks) {
+                    yield return task;
+                }
+                foreach(Project project in this.pastProjects) {
+                    yield return project;
+                }
             }
-            foreach(object project in this.pastProjects) {
-                yield return project;
+            else {
+                foreach(Project project in this.pastProjects) {
+                    if (project.salary >= bottomLine) {
+                        yield return project;
+                    }
+                }
             }
         }
-        public IEnumerator GetProjects(int bottomLine){
-            foreach(object project in this.pastProjects) {
-                if (project.salary >= bottomLine) yield return project;
+        public IEnumerator GetEnumerator(){
+            if (this.bottomLine == -1) {
+                foreach(Task task in this.tasks) {
+                    yield return task;
+                }
+                foreach(Project project in this.pastProjects) {
+                    yield return project;
+                }
+            }
+            else {
+                foreach(Project project in this.pastProjects) {
+                    if (project.salary >= bottomLine) {
+                        yield return project;
+                    }
+                }
             }
         }
         public double AverageSalary {
@@ -427,9 +455,11 @@ namespace csharp_lab2
     {
         static void Main(string[] args)
         {   // 1
+            Console.WriteLine("\n№1");
             bool isPersonsSimilar = (new Person("Billy", "Herrington", new DateTime(1969, 07, 14)) == new Person("Billy", "Herrington", new DateTime(1969, 07, 14)));
             Console.WriteLine($"Both persons are similar: {isPersonsSimilar}");
             // 2
+            Console.WriteLine("\n№2");
             Employee employee = new Employee(new Person("Billy", "Herrington", new DateTime(1969, 07, 14)), JobTitle.Perfomance_Artist, 333);
             ArrayList projects = new ArrayList();
             projects.Add(new Project("TW-STR", 5000, new DateTime(2020, 12, 31)));
@@ -441,16 +471,33 @@ namespace csharp_lab2
             employee.AddTasks(tasks);
             Console.WriteLine(employee);
             // 3
+            Console.WriteLine("\n№3");
             Console.WriteLine(employee.Person);
             // 4
-            new Person("Billy", "Herrington", new DateTime(1969, 07, 14));
-            Console.WriteLine(employee.ToShortString());
-            Console.WriteLine($"{JobTitle.Default} {JobTitle.Twitch_Streamer} {JobTitle.Perfomance_Artist}");
-            employee.Person = new Person("Sebastian", "Fors", new DateTime(1990, 12, 16));
-            employee.ProjectId = 77777;
-            employee.JobTitle = JobTitle.Twitch_Streamer;
-            
-            Console.WriteLine(employee);
+            Console.WriteLine("\n№4");
+            Employee copiedEmployee = employee.DeepCopy();
+            copiedEmployee.Person = new Person("Sebastian", "Fors", new DateTime(1990, 12, 16));
+            copiedEmployee.ProjectId = 400;
+            copiedEmployee.JobTitle = JobTitle.Twitch_Streamer;
+            Console.WriteLine($"Copied:\n{copiedEmployee}");
+            Console.WriteLine($"\n\nInitial:\n{employee}");
+            // 5
+            Console.WriteLine("\n№5");
+            try {
+                employee.ProjectId = 77777;
+            } catch(Exception e) {
+                Console.WriteLine($"{e}");
+            }
+            // 6
+            Console.WriteLine("\n№6");
+            foreach(object obj in employee.GetIterator()) {
+                Console.WriteLine(obj);
+            }
+            // 7
+            Console.WriteLine("\n№7");
+            foreach(object obj in employee.GetIterator(4000)) {
+                Console.WriteLine(obj);
+            }
         }
     }
 }
