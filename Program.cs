@@ -245,6 +245,12 @@ namespace csharp_lab2
         public virtual string ToShortString() {
             return $"{firstName} {lastName}";
         }
+        public static bool operator !=(Person obj1, object obj2) {
+            return !(obj1 == obj2);
+        }
+        public static bool operator ==(Person obj1, object obj2) {
+            return obj1.Equals(obj2);
+        }
         public override bool Equals(object obj) {
             return this.GetHashCode() == obj.GetHashCode();
         }
@@ -252,11 +258,13 @@ namespace csharp_lab2
             var hashCode = 352033288;
             hashCode = hashCode * -1521134295 + this.firstName.GetHashCode();
             hashCode = hashCode * -1521134295 + this.lastName.GetHashCode();
-            hashCode = hashCode * -1521134295 + this.birthDate.GetHashCode();
+            hashCode = hashCode * -1521134295 + this.birthDate.Year.GetHashCode();
+            hashCode = hashCode * -1521134295 + this.birthDate.Month.GetHashCode();
+            hashCode = hashCode * -1521134295 + this.birthDate.Day.GetHashCode();
             return hashCode;
         }
         public virtual Person DeepCopy() {
-            return new Person(this.firstName, this.lastName, this.birthDate);
+            return new Person(this.firstName, this.lastName, new DateTime(this.birthDate.Year, this.birthDate.Month, this.birthDate.Day));
         }
     }
 
@@ -334,7 +342,7 @@ namespace csharp_lab2
                 return projectId;
             }
             set {
-                if (value > 599 && value <= 100) throw new Exception("Project ID value should be greater than or equals to 100 and less than 599!");
+                if (value > 599 || value <= 99) throw new Exception("Project ID value should be greater than or equals to 100 and less than 599!");
                 projectId = value;
             }
         }
@@ -433,7 +441,10 @@ namespace csharp_lab2
             return hashCode;
         }
         public virtual Employee DeepCopy() {
-            return new Employee(this.person, this.jobTitle, this.projectId);
+            Employee newEmployee = new Employee(this.person, this.jobTitle, this.projectId);
+            newEmployee.AddProjects(this.pastProjects);
+            newEmployee.AddTasks(this.tasks);
+            return newEmployee;
         }
     }
     class Task {

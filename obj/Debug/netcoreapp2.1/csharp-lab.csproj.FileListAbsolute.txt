@@ -26,3 +26,8 @@ E:\Универ\OOTPiSP\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.AssemblyIn
 E:\Универ\OOTPiSP\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.AssemblyInfo.cs
 E:\Универ\OOTPiSP\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.dll
 E:\Универ\OOTPiSP\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.pdb
+E:\Универ\OOTPiSP\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.deps.json
+E:\Универ\OOTPiSP\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.runtimeconfig.json
+E:\Универ\OOTPiSP\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.runtimeconfig.dev.json
+E:\Универ\OOTPiSP\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.dll
+E:\Универ\OOTPiSP\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.pdb
