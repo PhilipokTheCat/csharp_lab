@@ -31,3 +31,14 @@ E:\Универ\OOTPiSP\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.runtimecon
 E:\Универ\OOTPiSP\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.runtimeconfig.dev.json
 E:\Универ\OOTPiSP\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.dll
 E:\Универ\OOTPiSP\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.pdb
+C:\Users\Anton_Filipovich1\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.deps.json
+C:\Users\Anton_Filipovich1\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.runtimeconfig.json
+C:\Users\Anton_Filipovich1\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.runtimeconfig.dev.json
+C:\Users\Anton_Filipovich1\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.dll
+C:\Users\Anton_Filipovich1\csharp_lab\bin\Debug\netcoreapp2.1\csharp-lab.pdb
+C:\Users\Anton_Filipovich1\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.csprojAssemblyReference.cache
+C:\Users\Anton_Filipovich1\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.csproj.CoreCompileInputs.cache
+C:\Users\Anton_Filipovich1\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.AssemblyInfoInputs.cache
+C:\Users\Anton_Filipovich1\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.AssemblyInfo.cs
+C:\Users\Anton_Filipovich1\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.dll
+C:\Users\Anton_Filipovich1\csharp_lab\obj\Debug\netcoreapp2.1\csharp-lab.pdb
