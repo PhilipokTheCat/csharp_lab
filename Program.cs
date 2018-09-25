@@ -1283,6 +1283,9 @@ namespace csharp_lab4
         public event EmployeeListHandler EmployeeReferenceChanged;
         private List<Employee> Employees = new List<Employee>();
         public string collectionName { get; set; }
+        public EmployeeCollection(string name) {
+            this.collectionName = name;
+        }
         public void AddDefaults() {
             Employee emp = new Employee(new Person("DefaultName", "DefaultSurname", new DateTime(2000, 12, 31)), JobTitle.Default, 100);
             Employees.Add(emp);
@@ -1444,22 +1447,19 @@ namespace csharp_lab4
     {
         static void Main(string[] args)
         {   // 1
-            Console.WriteLine("\n№1");
-            EmployeeCollection firstCollection = new EmployeeCollection();
-            firstCollection.AddEmployee(new Employee(new Person("Billy", "Herrington", new DateTime(1969, 07, 14)), JobTitle.Perfomance_Artist, 333));
-            firstCollection.AddDefaults();
-            EmployeeCollection secondCollection = new EmployeeCollection();
-            secondCollection.AddEmployee(new Employee(new Person("Sebastian", "Fors", new DateTime(1990, 12, 16)), JobTitle.Twitch_Streamer, 400));
-            secondCollection.AddDefaults();
-
-            // 2
+            EmployeeCollection firstCollection = new EmployeeCollection("First collection");
+            EmployeeCollection secondCollection = new EmployeeCollection("Second Collection");
             Journal firstJournal = new Journal();
+            Journal secondJournal = new Journal();
             firstCollection.EmployeeReferenceChanged += firstJournal.EmployeeReferenceChanged;
             firstCollection.EmployeesCountChanged += firstJournal.EmployeesCountChanged;
-            Journal secondJournal = new Journal();
             firstCollection.EmployeeReferenceChanged += secondJournal.EmployeeReferenceChanged;
             secondCollection.EmployeesCountChanged += secondJournal.EmployeesCountChanged;
-
+            secondCollection.EmployeeReferenceChanged += secondJournal.EmployeeReferenceChanged;
+            firstCollection.AddEmployee(new Employee(new Person("Billy", "Herrington", new DateTime(1969, 07, 14)), JobTitle.Perfomance_Artist, 333));
+            firstCollection.AddDefaults();
+            secondCollection.AddEmployee(new Employee(new Person("Sebastian", "Fors", new DateTime(1990, 12, 16)), JobTitle.Twitch_Streamer, 400));
+            secondCollection.AddDefaults();
             // 3
             firstCollection.AddEmployee(new Employee(new Person("Vitaly", "Gromyako", new DateTime(1991, 12, 10)), JobTitle.Twitch_Streamer, 228));
             firstCollection.Remove(1);
