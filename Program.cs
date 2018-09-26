@@ -1788,6 +1788,100 @@ namespace csharp_lab5
             stream.Close();
             return deserializedEmployee;
         }
+        public bool Save(string filename) {
+            try {
+                var stream = new FileStream(filename, FileMode.Create);
+                DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(Employee));
+                json.WriteObject(stream, this);
+                stream.Close();
+            }
+            catch(Exception e) {
+                return false;
+            }
+            return true;
+        }
+        public bool Load(string filename) {
+            try {
+                var stream = new FileStream(filename, FileMode.Open);
+                stream.Position = 0;
+                DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(Employee));
+                Employee loadedEmployee = (Employee)json.ReadObject(stream);
+                stream.Close();
+                this.Person = loadedEmployee.Person;
+                this.ProjectId = loadedEmployee.ProjectId;
+                this.JobTitle = loadedEmployee.JobTitle;
+                this.PastProjects = loadedEmployee.pastProjects;
+                this.Tasks = loadedEmployee.Tasks;
+            }
+            catch(Exception e) {
+                return false;
+            }
+            return true;
+        }
+        public static bool Save(string filename, Employee obj) {
+            try {
+                var stream = new FileStream(filename, FileMode.Create);
+                DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(Employee));
+                json.WriteObject(stream, obj);
+                stream.Close();
+            }
+            catch(Exception e) {
+                return false;
+            }
+            return true;
+        }
+        public static bool Load(string filename, Employee obj) {
+            try {
+                var stream = new FileStream(filename, FileMode.Open);
+                stream.Position = 0;
+                DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(Employee));
+                Employee loadedEmployee = (Employee)json.ReadObject(stream);
+                stream.Close();
+                obj.Person = loadedEmployee.Person;
+                obj.ProjectId = loadedEmployee.ProjectId;
+                obj.JobTitle = loadedEmployee.JobTitle;
+                obj.PastProjects = loadedEmployee.pastProjects;
+                obj.Tasks = loadedEmployee.Tasks;
+            }
+            catch(Exception e) {
+                return false;
+            }
+            return true;
+        }
+        public bool AddFromConsole() {
+            Console.WriteLine("Enter properties of the past project");
+            Console.WriteLine("Name of the project: ");
+            string name = Console.ReadLine();
+            if (name.Length > 30) {
+                Console.WriteLine("Error: project name's length cannot be greater than 30. Got: " + name.Length);
+                return false;
+            }
+            Console.WriteLine("Enter project's salary per month value. It should not be less than 0.\nSalary per month: ");
+            int salary;
+            try {
+                salary = int.Parse(Console.ReadLine());
+                if (salary < 0) {
+                    Console.WriteLine("Error: salary cannot be less than 0. Got: " + salary);
+                    return false;
+                }
+            }
+            catch(Exception e) {
+                Console.WriteLine("Error: entered salary is not an integer value.");
+                return false;
+            }
+            Console.WriteLine("Enter deadline date in format: YYYY:MM:DD\nDealine date: ");
+            string stringDate = Console.ReadLine();
+            string[] stringArrayDate = stringDate.Split(":");
+            if (stringArrayDate.Length != 3) {
+                Console.WriteLine("Parse Error: incorrect date format");
+                return false;
+            }
+            int year = int.Parse(stringArrayDate[0]);
+            int month = int.Parse(stringArrayDate[1]);
+            int day = int.Parse(stringArrayDate[2]);
+            if (year < DateTime.Now.Year || year > 2100)
+            return true;
+        }
     }
 
     class EmployeeComparer : IComparer<Employee> {
@@ -1983,7 +2077,9 @@ namespace csharp_lab5
         {   // 1
             Employee employee = new Employee(new Person("Billy", "Herrington", new DateTime(1969, 07, 14)), JobTitle.Perfomance_Artist, 333);
             Employee copiedEmployee = employee.DeepCopy();
-            
+            copiedEmployee.ProjectId = 111;
+            Console.WriteLine(employee);
+            Console.WriteLine(copiedEmployee);
         }
     }
 }
