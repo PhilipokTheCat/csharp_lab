@@ -1983,13 +1983,7 @@ namespace csharp_lab5
         {   // 1
             Employee employee = new Employee(new Person("Billy", "Herrington", new DateTime(1969, 07, 14)), JobTitle.Perfomance_Artist, 333);
             Employee copiedEmployee = employee.DeepCopy();
-            Console.WriteLine(employee);
-            Console.WriteLine(copiedEmployee);
-            Console.WriteLine(employee == copiedEmployee);
-            copiedEmployee.ProjectId = 111;
-            Console.WriteLine(employee == copiedEmployee);
-            Console.WriteLine(employee);
-            Console.WriteLine(copiedEmployee);
+            
         }
     }
 }
