@@ -1879,7 +1879,12 @@ namespace csharp_lab5
             int year = int.Parse(stringArrayDate[0]);
             int month = int.Parse(stringArrayDate[1]);
             int day = int.Parse(stringArrayDate[2]);
-            if (year < DateTime.Now.Year || year > 2100)
+            if ((year < DateTime.Now.Year || year > 2100) || (month < 1 || month > 12) || (day < 1 || day > DateTime.DaysInMonth(year, month))) {
+                Console.WriteLine("Error: invalid date value");
+                return false;
+            }
+            DateTime deadline = new DateTime(year, month, day);
+            this.pastProjects.Add(new Project(name, salary, deadline));
             return true;
         }
     }
