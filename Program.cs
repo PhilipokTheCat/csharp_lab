@@ -2109,10 +2109,12 @@ namespace csharp_lab5
             Console.WriteLine("\n№4\n");
             employee.AddFromConsole();
             employee.Save(filename);
+            Console.WriteLine(employee);
+            Console.WriteLine("\n№5\n");
             Employee.Load(filename, employee);
             employee.AddFromConsole();
             Employee.Save(filename, employee);
-            Console.WriteLine("\n№5\n");
+            Console.WriteLine("\n№6\n");
             Console.WriteLine(employee);
         }
     }
