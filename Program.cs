@@ -1589,9 +1589,15 @@ namespace csharp_lab5
         }
     }
 
+    [DataContract]
     class Project : IDateAndCopy {
+        [DataMember]
         public string name { get; set; }
+
+        [DataMember]
         public int salary { get; set; }
+
+        [DataMember]
         public System.DateTime deadline { get; set; }
         public Project(string name, int salary, System.DateTime deadline) {
             this.name = name;
@@ -2080,11 +2086,34 @@ namespace csharp_lab5
     {
         static void Main(string[] args)
         {   // 1
+            Console.WriteLine("\n№1\n");
             Employee employee = new Employee(new Person("Billy", "Herrington", new DateTime(1969, 07, 14)), JobTitle.Perfomance_Artist, 333);
+            List<Project> projects = new List<Project>();
+            projects.Add(new Project("TW-STR", 3000, DateTime.Now));
+            employee.AddProjects(projects);
             Employee copiedEmployee = employee.DeepCopy();
             copiedEmployee.ProjectId = 111;
+            Console.WriteLine($"Initial: {employee}\n##################\n");
+            Console.WriteLine($"Copied: {copiedEmployee}\n");
+            Console.WriteLine("\n№2\n");
+            Console.WriteLine("Enter a filename you want to initialize an object: ");
+            string filename = Console.ReadLine();
+            if (File.Exists(filename)) {
+                employee.Load(filename);
+            } else {
+                Console.WriteLine("Warning: file which contains an entered filename isn't exist. Creating a new file");
+                employee.Save(filename);
+            };
+            Console.WriteLine("\n№3\n");
             Console.WriteLine(employee);
-            Console.WriteLine(copiedEmployee);
+            Console.WriteLine("\n№4\n");
+            employee.AddFromConsole();
+            employee.Save(filename);
+            Employee.Load(filename, employee);
+            employee.AddFromConsole();
+            Employee.Save(filename, employee);
+            Console.WriteLine("\n№5\n");
+            Console.WriteLine(employee);
         }
     }
 }
